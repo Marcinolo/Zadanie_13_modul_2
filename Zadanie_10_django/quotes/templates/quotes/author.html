@@ -1,0 +1,21 @@
+
+{% extends "quotes/base.html" %}
+{% load django_bootstrap5 %}
+
+  {% block title %}
+    <h2>Author</h2>
+  {% endblock title %}
+
+{% block content %}
+    {% if author %}
+      <form action="{% url 'quotes:edit_author' author.id %}" method="post">
+    {% else %}
+
+      <form action="{% url 'quotes:new_author' %}" method="post">
+    {% endif %}
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% bootstrap_button button_type="submit" content="Save" %}
+      </form>
+{% endblock content %}
+      </form>

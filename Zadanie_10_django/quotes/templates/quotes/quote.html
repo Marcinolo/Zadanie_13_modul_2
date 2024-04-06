@@ -1,0 +1,45 @@
+{% extends "quotes/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+  <h2>Quote</h2>
+{% endblock title %}  
+
+{% block content %}
+  {% if quote %}
+    <form action="{% url 'quotes:edit_quote' quote.id %}" method="post">
+  {% else %}
+    <form action="{% url 'quotes:new_quote' %}" method="post">
+  {% endif %}
+    {% csrf_token %}
+    <div class="form-group">
+        <!--<label for="quote">Quote:</label> -->
+        {{ form.quote }}
+        <span class="text-danger">{{ form.errors.quote }}</span>
+    </div>
+    
+    <div class="form-group">
+        <!--<label for="author">Select author:</label> -->
+        <select class="form-control" name="author" required>
+            {% for author in authors %}
+                <option value="{{ author.name }}" {% if author.name == quote_author.name %}selected{% endif %}>{{ author.name }}</option>
+            {% endfor %}
+        </select>
+        <span class="text-danger">{{ form.errors.author }}</span>
+    </div>
+
+    <div class="form-group">
+        <!-- <label for="tags">Select tags:</label> -->
+        <select class="form-control" name="tags" multiple="multiple" required>
+            {% for tag in tags %}
+                <option value="{{ tag.name }}" {% if tag in selected_tags %}selected{% endif %}>{{ tag.name }}</option>
+            {% endfor %}
+        </select>
+        <span class="text-danger">{{ form.errors.tags }}</span>
+    </div>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+{% endblock content %}
+    </form>

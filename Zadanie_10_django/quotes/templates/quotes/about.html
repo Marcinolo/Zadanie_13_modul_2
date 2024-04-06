@@ -1,0 +1,16 @@
+<body class="bg-lightblue">
+{% extends "quotes/base.html" %}
+
+{% block content %}
+ <h2> {{ author.name }} </h2>
+ <p><b>Born:</b> {{ author.born_date }} {{ author.born_location }}</p>
+ <p><b>Descryption:</b></p>
+ <p> {{ author.descryption }} </p>
+ {% if user.is_authenticated %}
+ <p>
+    <a href="{% url 'quotes:edit_author' author.id %}">Edit</a> -
+    <a href="{% url 'quotes:delete_author' author.id %}">Delete</a>
+ </p>
+ {% endif %}
+{% endblock content %}
+</body>

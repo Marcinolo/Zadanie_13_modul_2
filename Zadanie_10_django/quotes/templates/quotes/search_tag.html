@@ -1,0 +1,15 @@
+{% extends "quotes/base.html" %}
+
+{% block content %}
+  {% if close_up_tags %}
+    <h6>I couldn't find the tag: <b>"{{ query_value }}"</b>, maybe you meant:</h6>
+
+    {% for tag in close_up_tags %}
+      <li>
+        <a href="{% url 'quotes:tag_quotes' tag.id %}">{{ tag.name }}</a>
+      </li>  
+    {% endfor %}
+  {% else %}
+    <h6>No tags found for: <b>"{{ query_value }}"</b></h6>
+  {% endif %}
+{% endblock content %}
